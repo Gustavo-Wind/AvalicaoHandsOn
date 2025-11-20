@@ -1,17 +1,28 @@
-name: CI Pipeline  
-on: [push, pull_request]  
-jobs:  
-  test:  
-    runs-on: ubuntu-latest  
-    steps:  
-      - name: Checkout do Código  
-        uses: actions/checkout@v3  
-      - name: Configurar Python  
-        uses: actions/setup-python@v3  
-        with:  
-          python-version: '3.8'  
-      - name: Instalar Dependências  
-        run: pip install pytest  
-      - name: Executar Testes  
-        run: pytest tests/  
+# .github/workflows/ci.yml
+name: CI Pipeline
 
+# O workflow será acionado em cada push ou pull request em qualquer branch
+on: [push, pull_request]
+
+jobs:
+  test:
+    # O pipeline será executado em uma máquina virtual Linux
+    runs-on: ubuntu-latest
+    steps:
+      # Passo 1: Faz o checkout do código do repositório
+      - name: Checkout do Código
+        uses: actions/checkout@v3
+
+      # Passo 2: Configura a versão do Python no ambiente de execução
+      - name: Configurar Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8' # Garante a versão 3.8
+
+      # Passo 3: Instala o pytest para poder rodar os testes
+      - name: Instalar Dependências
+        run: pip install pytest
+
+      # Passo 4: Executa os testes e verifica se todos passam
+      - name: Executar Testes
+        run: pytest tests/
